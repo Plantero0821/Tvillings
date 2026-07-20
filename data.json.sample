@@ -1,0 +1,11 @@
+{
+    "messageFolder": "./messageFolder",
+    "users": [
+        { "id": "1234567890123456789", "name": "sampleUser" }
+    ],
+    "servers": [
+        { "id": "1234567890123456789", "name": "sampleServer", "webhookLinks": [
+            { "id": "1234567890123456789", "link": "webhookLinkGoesHere"}
+        ]}
+    ]
+}

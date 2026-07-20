@@ -1,0 +1,4 @@
+/node_modules/
+/messageFolder/*
+.env
+data.json
