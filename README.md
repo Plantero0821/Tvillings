@@ -6,7 +6,7 @@ This bot sends messages with their names and profile pictures using webhooks, wi
 <img width="470" height="814" alt="Tvilling_preview" src="https://github.com/user-attachments/assets/ae31833f-bf94-41eb-afbb-1f85b9f9aa0d" />
 
 ## Setup instructions
-- Set up a discord bot to work with this repo (see notes).
+- Set up a discord bot to work with this repo (see notes)
 - Set up webhooks for every channel that you want this bot to work in
 - Copy .env.sample and data.json.sample, and remove the .sample from each
 	- Edit them with your own information (see notes)
