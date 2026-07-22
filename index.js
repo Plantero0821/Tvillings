@@ -36,10 +36,35 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
    * See https://discord.com/developers/docs/interactions/application-commands#slash-commands
    */
   if (type === InteractionType.APPLICATION_COMMAND) {
-    const { name } = data;
+    const { name, options } = data;
 
     if (name === 'conversation') {
       let webhookRegistered = (serverData.servers.find(x => x.id == guild_id)?.webhookLinks.find(x => x.id == channel.id)) ? true : false;
+      let conversationRounds = 10;
+      let roundLength = 5;
+      let maxMessageLength = 15;
+      let messageInterval = 2500;
+
+      if (options) {
+          for (const option of options) {
+          switch (option.name) {
+            case "conversation_rounds":
+              conversationRounds = option.value;
+              conversationRounds += 1000;
+              break;
+            case "round_length":
+              roundLength = option.value;
+              break;
+            case "max_message_length":
+              maxMessageLength = option.value;
+              break;
+            case "message_interval":
+              messageInterval = option.value;
+              break;
+          }
+        }
+      }
+
       let response = res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
@@ -53,7 +78,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
         },
       });
       try {
-        if (webhookRegistered) haveConversation(guild_id, channel.id);
+        if (webhookRegistered) haveConversation(guild_id, channel.id, conversationRounds, roundLength, maxMessageLength, messageInterval);
       } catch (ex) {
         console.error(ex);
       }

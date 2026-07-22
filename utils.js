@@ -48,19 +48,20 @@ export function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export async function haveConversation(serverID, channelID) {
+export async function haveConversation(serverID, channelID, conversationRounds, roundLength, maxMessageLength, messageInterval) {
   const order = [];
-  const speakingRounds = 10;
-  const roundLength = 5;
-  const maxMessageLength = 15;
-  const messageInterval = 2500;
+  let fixedNumOfConversationRounds = false;
+  if (conversationRounds > 1000) {
+    conversationRounds -= 1000;
+    fixedNumOfConversationRounds = true;
+  }
 
   // Generate speakingRounds rounds of conversation
   // Each person says a maximum of roundLength messages per round
   const persons = Object.keys(messageGenerators);
   let lastPickedPerson;
   //Make sure there are at least two rounds of conversation so it's an actual conversation
-  for (let i = 0; i < (2 + Math.floor(Math.random() * (speakingRounds - 2))); i++) {
+  for (let i = 0; i < (fixedNumOfConversationRounds ? conversationRounds : (2 + Math.floor(Math.random() * (conversationRounds - 2)))); i++) {
 	// Ensure speaker changes per round of conversation
     let pickedPerson;
     do {
